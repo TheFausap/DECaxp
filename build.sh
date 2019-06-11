@@ -29,6 +29,7 @@
 # Before we go too far, save some information we will want later.
 #
 CUR_DIR=$PWD
+OS=$( cat /etc/redhat-release | sed 's/\(\w*\).*/\1/' )
 
 #
 # Get the directory where this build script resides.
@@ -110,7 +111,11 @@ done
 if [[ ! -d build ]]; then
     mkdir build
     cd build
-    cmake -DCMAKE_BUILD_TYPE=$BLD_TYPE ..
+    if [[ "$OS" == "CentOS" ]]; then
+        cmake3 -DLINUX=ON -DCMAKE_BUILD_TYPE=$BLD_TYPE ..
+    else
+        cmake -DCMAKE_BUILD_TYPE=$BLD_TYPE ..
+    fi
 else
     cd build
 fi

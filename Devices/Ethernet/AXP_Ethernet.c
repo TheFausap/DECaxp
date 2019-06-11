@@ -31,6 +31,11 @@
 #include "Devices/Ethernet/AXP_Ethernet.h"
 #include "CommonUtilities/AXP_Blocks.h"
 
+#if defined(linux)
+     #define PCAP_OPENFLAG_PROMISCUOUS 1
+     #define PCAP_OPENFLAG_NOCAPTURE_LOCAL 8
+#endif
+
 /*
  * AXP_EthernetOpen
  *  This function is called to open an ethernet device for sending and
@@ -58,14 +63,19 @@ AXP_Ethernet_Handle *AXP_EthernetOpen(char *name, u8 cardNo)
     retVal = AXP_Allocate_Block(AXP_ETHERNET_BLK);
     if (retVal != NULL)
     {
-
+#if defined(linux)
+  retVal->handle = pcap_open_live(
+#else
   retVal->handle = pcap_open(
+#endif
         name,
         SIXTYFOUR_K,
         (PCAP_OPENFLAG_PROMISCUOUS |
             PCAP_OPENFLAG_NOCAPTURE_LOCAL),
         AXP_ETH_READ_TIMEOUT,
+#if !defined(linux)
         NULL,
+#endif
         retVal->errorBuf);
   if (retVal->handle == NULL)
   {

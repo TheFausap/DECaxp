@@ -35,6 +35,22 @@ add_executable(AXP_21264_Cache_Test
 target_include_directories(AXP_21264_Cache_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
 
+if(LINUX)
+target_link_libraries(AXP_21264_Cache_Test PRIVATE
+    Caches
+    Cbox
+    Ibox
+    Mbox
+    Ebox
+    Fbox
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpcap
+    -lpthread
+    ${compiler-rt})
+else()
 target_link_libraries(AXP_21264_Cache_Test PRIVATE
     Caches
     Cbox
@@ -49,10 +65,20 @@ target_link_libraries(AXP_21264_Cache_Test PRIVATE
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll
     ${compiler-rt})
+endif(LINUX)
 
 add_executable(AXP_21264_Dump_Test
     AXP_21264_Dump_Test.c)
 
+if(LINUX)
+target_link_libraries(AXP_21264_Dump_Test PRIVATE
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpthread
+    -lpcap)
+else()
 target_link_libraries(AXP_21264_Dump_Test PRIVATE
     CommonUtilities
     Ethernet
@@ -60,6 +86,7 @@ target_link_libraries(AXP_21264_Dump_Test PRIVATE
     -lm
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 target_include_directories(AXP_21264_Dump_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
@@ -67,6 +94,16 @@ target_include_directories(AXP_21264_Dump_Test PRIVATE
 add_executable(AXP_21264_FloatingPointTest_Test
     AXP_21264_FloatingPointTest.c)
 
+if(LINUX)
+target_link_libraries(AXP_21264_FloatingPointTest_Test PRIVATE
+    Fbox
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpthread
+    -lpcap)
+else()
 target_link_libraries(AXP_21264_FloatingPointTest_Test PRIVATE
     Fbox
     CommonUtilities
@@ -75,6 +112,7 @@ target_link_libraries(AXP_21264_FloatingPointTest_Test PRIVATE
     -lm
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 target_include_directories(AXP_21264_FloatingPointTest_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
@@ -82,6 +120,22 @@ target_include_directories(AXP_21264_FloatingPointTest_Test PRIVATE
 add_executable(AXP_21264_Icache_Test
     AXP_21264_Icache_Test.c)
 
+if(LINUX)
+target_link_libraries(AXP_21264_Icache_Test PRIVATE
+    Caches
+    Cbox
+    Ibox
+    Mbox
+    Ebox
+    Fbox
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpcap
+    -lpthread
+    ${compiler-rt})
+else()
 target_link_libraries(AXP_21264_Icache_Test PRIVATE
     Caches
     Cbox
@@ -96,6 +150,7 @@ target_link_libraries(AXP_21264_Icache_Test PRIVATE
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll
     ${compiler-rt})
+endif(LINUX)
 
 target_include_directories(AXP_21264_Icache_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
@@ -106,6 +161,23 @@ add_executable(AXP_21264_IntegerLoadTest
 target_include_directories(AXP_21264_IntegerLoadTest PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
 
+if(LINUX)
+target_link_libraries(AXP_21264_IntegerLoadTest PRIVATE
+    Ebox
+    Mbox
+    Cbox
+    Ibox
+    Ebox
+    Fbox
+    Caches
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpcap
+    -lpthread
+    ${compiler-rt})
+else()
 target_link_libraries(AXP_21264_IntegerLoadTest PRIVATE
     Ebox
     Mbox
@@ -121,10 +193,21 @@ target_link_libraries(AXP_21264_IntegerLoadTest PRIVATE
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll
     ${compiler-rt})
+endif(LINUX)
 
 add_executable(AXP_21264_Prediction_Test
     AXP_21264_Prediction_Test.c)
 
+if(LINUX)
+target_link_libraries(AXP_21264_Prediction_Test PRIVATE
+    Ibox
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpthread
+    -lpcap)
+else()
 target_link_libraries(AXP_21264_Prediction_Test PRIVATE
     Ibox
     CommonUtilities
@@ -133,6 +216,7 @@ target_link_libraries(AXP_21264_Prediction_Test PRIVATE
     -lm
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 target_include_directories(AXP_21264_Prediction_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
@@ -143,6 +227,17 @@ add_executable(AXP_Disk_Test
 target_include_directories(AXP_Disk_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
 
+if(LINUX)
+target_link_libraries(AXP_Disk_Test PRIVATE
+    VirtualDisks
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -luuid
+    -lpthread
+    -lpcap)
+else()
 target_link_libraries(AXP_Disk_Test PRIVATE
     VirtualDisks
     CommonUtilities
@@ -152,6 +247,7 @@ target_link_libraries(AXP_Disk_Test PRIVATE
     -liconv
     -luuid
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 add_executable(AXP_DS12887A_Test
     AXP_DS12887A_Test.c)
@@ -159,6 +255,17 @@ add_executable(AXP_DS12887A_Test
 target_include_directories(AXP_DS12887A_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
 
+if(LINUX)
+target_link_libraries(AXP_DS12887A_Test PRIVATE
+    TOYClock
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpthread
+    -lrt
+    -lpcap)
+else()
 target_link_libraries(AXP_DS12887A_Test PRIVATE
     TOYClock
     CommonUtilities
@@ -167,6 +274,7 @@ target_link_libraries(AXP_DS12887A_Test PRIVATE
     -lm
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 add_executable(AXP_Telnet_Test
     AXP_Telnet_Test.c)
@@ -174,6 +282,16 @@ add_executable(AXP_Telnet_Test
 target_include_directories(AXP_Telnet_Test PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
 
+if(LINUX)
+target_link_libraries(AXP_Telnet_Test PRIVATE
+    Console
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpthread
+    -lpcap)
+else()
 target_link_libraries(AXP_Telnet_Test PRIVATE
     Console
     CommonUtilities
@@ -182,6 +300,7 @@ target_link_libraries(AXP_Telnet_Test PRIVATE
     -lm
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 add_executable(AXP_Test_Queues
     AXP_Test_Queues.c)
@@ -198,8 +317,13 @@ target_include_directories(AXP_Test_Structure_Sizes PRIVATE
 add_executable(AXP_Test_WinPcap
     AXP_Test_WinPcap.c)
 
+if(LINUX)
+target_link_libraries(AXP_Test_WinPcap PRIVATE
+    -lpcap)
+else()
 target_link_libraries(AXP_Test_WinPcap PRIVATE
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 target_include_directories(AXP_Test_WinPcap PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)

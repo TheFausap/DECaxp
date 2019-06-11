@@ -29,7 +29,15 @@ add_executable(DECaxp_Generate_SROM
 #set(CMAKE_LINK_LIBRARY_FLAG
 #    "${CMAKE_LINK_LIBRARY_FLAG} -lxml2 -lm -liconv -luuid -L /cygdrive/c/WINDOWS/system32 -lwpcap")
 #
-
+if(LINUX)
+target_link_libraries(DECaxp_Generate_SROM PRIVATE
+    CommonUtilities
+    Ethernet
+    -lxml2
+    -lm
+    -lpthread
+    -lpcap)
+else()
 target_link_libraries(DECaxp_Generate_SROM PRIVATE
     CommonUtilities
     Ethernet
@@ -37,6 +45,7 @@ target_link_libraries(DECaxp_Generate_SROM PRIVATE
     -lm
     -liconv
     /cygdrive/c/WINDOWS/system32/wpcap.dll)
+endif(LINUX)
 
 target_include_directories(DECaxp_Generate_SROM PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
@@ -44,6 +53,31 @@ target_include_directories(DECaxp_Generate_SROM PRIVATE
 add_executable(DECaxp
     DECaxp.c)
 
+if(LINUX)
+target_link_libraries(DECaxp PRIVATE
+    CPU
+    Cbox
+    Ibox
+    Ebox
+    Fbox
+    Mbox
+    Caches
+    Motherboard
+    Cchip
+    Dchip
+    Pchip
+    Console
+    TOYClock
+    CommonUtilities
+    Ethernet
+    VirtualDisks
+    -lxml2
+    -lm
+    -luuid
+    -lpcap
+    -lpthread
+    ${compiler-rt})
+else()
 target_link_libraries(DECaxp PRIVATE
     CPU
     Cbox
@@ -67,6 +101,7 @@ target_link_libraries(DECaxp PRIVATE
     -luuid
     /cygdrive/c/WINDOWS/system32/wpcap.dll
     ${compiler-rt})
+endif(LINUX)
 
 target_include_directories(DECaxp PRIVATE
     ${PROJECT_SOURCE_DIR}/Includes)
